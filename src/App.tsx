@@ -1,40 +1,61 @@
 import React, { useState } from 'react'
-import csvData from './assets/cakavski-rjecnik.csv'
+import cakavskiRjecnik from './assets/cakavski-rjecnik.json'
 
-const App = () => {
-	const [text, setText] = useState('')
-	const [decodedText, setDecodedText] = useState('')
+interface Mapping {
+	cakavski: string
+	stokavski: string
+}
 
-	const decodeText = () => {
-		let decoded = text
+function App() {
+	const [stokavskiValue, setStokavskiValue] = useState<string>('')
+	const [cakavskiValue, setCakavskiValue] = useState<string>('')
 
-		csvData.forEach((row: any) => {
-			const regex = new RegExp(row.cakavski, 'g')
-			decoded = decoded.replace(regex, row.stokavski)
+	const translateToCakavski = (input: string): string => {
+		const wordList = input.split(' ')
+		const translatedList = wordList.map((word) => {
+			const mapping = cakavskiRjecnik.find((item: Mapping) => item.stokavski === word)
+			if (mapping) {
+				return mapping.cakavski
+			}
+			return word
 		})
-
-		setDecodedText(decoded)
+		return translatedList.join(' ')
 	}
 
-	const encodeText = () => {
-		let encoded = text
-
-		csvData.forEach((row: any) => {
-			const regex = new RegExp(row.stokavski, 'g')
-			encoded = encoded.replace(regex, row.cakavski)
+	const translateToStokavski = (input: string): string => {
+		const wordList = input.split(' ')
+		const translatedList = wordList.map((word) => {
+			const mapping = cakavskiRjecnik.find((item: Mapping) => item.cakavski === word)
+			if (mapping) {
+				return mapping.stokavski
+			}
+			return word
 		})
+		return translatedList.join(' ')
+	}
 
-		setDecodedText(encoded)
+	const handleStokavskiChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+		const input = event.target.value
+		setStokavskiValue(input)
+		setCakavskiValue(translateToCakavski(input))
+	}
+
+	const handleCakavskiChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+		const input = event.target.value
+		setCakavskiValue(input)
+		setStokavskiValue(translateToStokavski(input))
 	}
 
 	return (
 		<div>
-			<textarea value={text} onChange={(e) => setText(e.target.value)} />
-			<br />
-			<button onClick={decodeText}>Decode</button>
-			<button onClick={encodeText}>Encode</button>
-			<br />
-			<textarea value={decodedText} readOnly />
+			<label>
+				Štokavski:
+				<textarea rows={5} cols={50} value={stokavskiValue} onChange={handleStokavskiChange} />
+			</label>
+			<label>
+				Čakavski:
+				<textarea rows={5} cols={50} value={cakavskiValue} onChange={handleCakavskiChange} />
+			</label>
 		</div>
 	)
 }
