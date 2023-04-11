@@ -165,7 +165,6 @@ butiger,prodavač
 buton,dugme
 buža,rupa
 bužban,morska riba slična pišmolju
-ca,što na cakavici
 cakavica,narječje
 capon,motika pravokutnog oblika za plitko kopanje u rahloj zemlji i tesanje korova
 catara,plitka brodica za prijevoz tenkova
@@ -203,7 +202,8 @@ curat,mokriti
 cvit,cvijet
 cvitak,rani plod crne smokve znatno veći od kasnijih plodova
 ča,što
-ča ne?,što ne?
+ča,šta
+ča,kaj
 čagod,štogod (dajte čagod jimate).
 čamzi,stjenice
 čaval,čavao
@@ -237,10 +237,11 @@ cvitak,rani plod crne smokve znatno veći od kasnijih plodova
 črno,crno
 črv,crv
 čuda,"puno, mnogo"
-ća,ići
+ća,otići
 ća,daleko
 ća pasali,otišli
-ćaća,"tata, otac"
+ćaća,tata
+ćaća,otac
 ćakulat,razgovarati
 ćakulat,pričati o
 ćakulon,brbljavac
@@ -349,7 +350,8 @@ dršć,"vrsta ptice, slične drozdu"
 drugde,drugdje
 drugoška,"nekada, davno"
 držat,držati
-"duhtor, dohtor","doktor, liječnik"
+dohtor,doktor
+dohtor,liječnik
 duperat,"rabiti, upotrebljavati"
 dupjak,boca od dvije litre
 duplica,boca od dvije litre (najčešće se misli na vinsku)
@@ -358,6 +360,7 @@ durat,trajati
 dvajset,dvadeset
 dvor,nastamba za stoku kamenih zidova i slamnatog krova
 dvorci,vile
+e,hej
 engleški,engleski
 fabrika,tvornica
 facol,marama

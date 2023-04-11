@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import cakavskiRjecnik from './assets/cakavski-rjecnik.json'
 
 interface Mapping {
@@ -34,13 +34,13 @@ function App() {
 		return translatedList.join(' ')
 	}
 
-	const handleStokavskiChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+	const handleStokavskiChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
 		const input = event.target.value
 		setStokavskiValue(input)
 		setCakavskiValue(translateToCakavski(input))
 	}
 
-	const handleCakavskiChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+	const handleCakavskiChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
 		const input = event.target.value
 		setCakavskiValue(input)
 		setStokavskiValue(translateToStokavski(input))
