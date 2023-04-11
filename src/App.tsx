@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from 'react'
 import cakavskiRjecnik from './assets/cakavski-rjecnik.json'
+import Translator from './Translator'
 
 interface Mapping {
 	cakavski: string
@@ -34,28 +35,20 @@ function App() {
 		return translatedList.join(' ')
 	}
 
-	const handleStokavskiChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
-		const input = event.target.value
-		setStokavskiValue(input)
-		setCakavskiValue(translateToCakavski(input))
-	}
-
-	const handleCakavskiChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
-		const input = event.target.value
-		setCakavskiValue(input)
-		setStokavskiValue(translateToStokavski(input))
-	}
-
 	return (
 		<div>
-			<label>
-				Štokavski:
-				<textarea rows={5} cols={50} value={stokavskiValue} onChange={handleStokavskiChange} />
-			</label>
-			<label>
-				Čakavski:
-				<textarea rows={5} cols={50} value={cakavskiValue} onChange={handleCakavskiChange} />
-			</label>
+			<Translator
+				translateFunction={translateToCakavski}
+				inputState={[stokavskiValue, setStokavskiValue]}
+				outputState={[cakavskiValue, setCakavskiValue]}
+				label="Štokavski"
+			/>
+			<Translator
+				translateFunction={translateToStokavski}
+				inputState={[cakavskiValue, setCakavskiValue]}
+				outputState={[stokavskiValue, setStokavskiValue]}
+				label="Čakavski"
+			/>
 		</div>
 	)
 }
