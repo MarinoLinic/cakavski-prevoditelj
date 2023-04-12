@@ -170,7 +170,8 @@ capon,motika pravokutnog oblika za plitko kopanje u rahloj zemlji i tesanje koro
 catara,plitka brodica za prijevoz tenkova
 cedilo,cjedilo
 cedit,cijediti
-cel,sve
+cel,cijel
+celo,cijelo
 celemu svetu,cijelomu svijetu
 celo,"ne poderano, cijelo, sve"
 cena,cijena
@@ -443,7 +444,7 @@ fundat,potopiti
 furbo,prefrigan
 furešt,"stranac, primjer : ""ona j furešta, ali se j oženila za Grobničana"". (Grobnišćina)"
 furminanti,šibice
-gad,"zmija, neotrovnica"
+gad,zmija
 gajba,krletka
 Galerija,dio ceste Hreljin - Križišće pred tunelom
 gambeta,podmetanje noge (faul)
@@ -477,7 +478,6 @@ gradeli,roštilj s rešetkama
 grah,grašak
 graja,"kupina, žbunje, trnje"
 grajan,stanovnik grada
-"granpin, grampin",trokraka kuka na konopcu za vađenje iz vode
 grašćica,stanovnica grada
 grd,ružan
 grdo,ružno
@@ -491,7 +491,8 @@ grimje,gromovi
 grišpa,bora
 griz,"kupuruzno brazno, zalogaj"
 grje,ružnije
-"grm, grmić","hrast, hrastić"
+grm,hrast
+grmić,hrastić
 grmi,grmljavina
 grnut,grabljama i metlom od šiblja skupljati suho lišće
 gromača,"suhozid, hrpa kamanja"
@@ -499,9 +500,10 @@ grop,čvor
 grot,"grotlo, kameni otvor na šterni, cisterni"
 grota,"stijena kod mora, hrid"
 grozje,grožđe
-"grudi, grudvi","grudve, grude"
+grudi,grudve
+grudi,grude
 gruh,hrpa kamenja
-grunj,"ugor, vrsta zmijolike morske ribe"
+grunj,ugor
 gubica,njuška
 gurla,oluk
 gušt,"užitak, zadovoljstvo, ukus u hrani"
@@ -560,7 +562,8 @@ jadan,ljut
 jadan,"ljutit, srdit"
 jadi se,ljuti se
 jadna,ljuta
-jagodica,"jagoda, boba"
+jagodica,jagoda
+jagodica,boba
 jaketa,jakna
 jalova,neplodna
 japnar,"jama, udubljenje u kojem se gasi živo vapno"
@@ -1637,7 +1640,6 @@ tancat,"plesat, plesati"
 tarac,terasa
 tarina,glinena zdjela
 tarulj,drveni tanjur za palentu
-tarulj,drveni tanjur za palentu
 tati,lopovi
 tavaja,stolnjak
 tavajol,stolnjak
@@ -1651,7 +1653,9 @@ tega,toga
 tela,gomilano platno
 teleferika,žičara
 telefonat,telefonirati
-televizija,televizor
+televizor,televizija
+televizor,TV
+televizor,tv
 tellin,tijelom
 telo,tijelo
 tendit,pokazivati razumjevanje

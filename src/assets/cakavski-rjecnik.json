@@ -664,10 +664,6 @@
 		"stokavski": "morska riba slična pišmolju"
 	},
 	{
-		"cakavski": "ca",
-		"stokavski": "što na cakavici"
-	},
-	{
 		"cakavski": "cakavica",
 		"stokavski": "narječje"
 	},
@@ -689,7 +685,11 @@
 	},
 	{
 		"cakavski": "cel",
-		"stokavski": "sve"
+		"stokavski": "cijel"
+	},
+	{
+		"cakavski": "celo",
+		"stokavski": "cijelo"
 	},
 	{
 		"cakavski": "celemu svetu",
@@ -816,8 +816,12 @@
 		"stokavski": "što"
 	},
 	{
-		"cakavski": "ča ne?",
-		"stokavski": "što ne?"
+		"cakavski": "ča",
+		"stokavski": "šta"
+	},
+	{
+		"cakavski": "ča",
+		"stokavski": "kaj"
 	},
 	{
 		"cakavski": "čagod",
@@ -953,7 +957,7 @@
 	},
 	{
 		"cakavski": "ća",
-		"stokavski": "ići"
+		"stokavski": "otići"
 	},
 	{
 		"cakavski": "ća",
@@ -965,7 +969,11 @@
 	},
 	{
 		"cakavski": "ćaća",
-		"stokavski": "tata, otac"
+		"stokavski": "tata"
+	},
+	{
+		"cakavski": "ćaća",
+		"stokavski": "otac"
 	},
 	{
 		"cakavski": "ćakulat",
@@ -1400,8 +1408,12 @@
 		"stokavski": "držati"
 	},
 	{
-		"cakavski": "duhtor, dohtor",
-		"stokavski": "doktor, liječnik"
+		"cakavski": "dohtor",
+		"stokavski": "doktor"
+	},
+	{
+		"cakavski": "dohtor",
+		"stokavski": "liječnik"
 	},
 	{
 		"cakavski": "duperat",
@@ -1434,6 +1446,10 @@
 	{
 		"cakavski": "dvorci",
 		"stokavski": "vile"
+	},
+	{
+		"cakavski": "e",
+		"stokavski": "hej"
 	},
 	{
 		"cakavski": "engleški",
@@ -1765,7 +1781,7 @@
 	},
 	{
 		"cakavski": "gad",
-		"stokavski": "zmija, neotrovnica"
+		"stokavski": "zmija"
 	},
 	{
 		"cakavski": "gajba",
@@ -1900,10 +1916,6 @@
 		"stokavski": "stanovnik grada"
 	},
 	{
-		"cakavski": "granpin, grampin",
-		"stokavski": "trokraka kuka na konopcu za vađenje iz vode"
-	},
-	{
 		"cakavski": "grašćica",
 		"stokavski": "stanovnica grada"
 	},
@@ -1956,8 +1968,12 @@
 		"stokavski": "ružnije"
 	},
 	{
-		"cakavski": "grm, grmić",
-		"stokavski": "hrast, hrastić"
+		"cakavski": "grm",
+		"stokavski": "hrast"
+	},
+	{
+		"cakavski": "grmić",
+		"stokavski": "hrastić"
 	},
 	{
 		"cakavski": "grmi",
@@ -1988,8 +2004,12 @@
 		"stokavski": "grožđe"
 	},
 	{
-		"cakavski": "grudi, grudvi",
-		"stokavski": "grudve, grude"
+		"cakavski": "grudi",
+		"stokavski": "grudve"
+	},
+	{
+		"cakavski": "grudi",
+		"stokavski": "grude"
 	},
 	{
 		"cakavski": "gruh",
@@ -1997,7 +2017,7 @@
 	},
 	{
 		"cakavski": "grunj",
-		"stokavski": "ugor, vrsta zmijolike morske ribe"
+		"stokavski": "ugor"
 	},
 	{
 		"cakavski": "gubica",
@@ -2233,7 +2253,11 @@
 	},
 	{
 		"cakavski": "jagodica",
-		"stokavski": "jagoda, boba"
+		"stokavski": "jagoda"
+	},
+	{
+		"cakavski": "jagodica",
+		"stokavski": "boba"
 	},
 	{
 		"cakavski": "jaketa",
@@ -6540,10 +6564,6 @@
 		"stokavski": "drveni tanjur za palentu"
 	},
 	{
-		"cakavski": "tarulj",
-		"stokavski": "drveni tanjur za palentu"
-	},
-	{
 		"cakavski": "tati",
 		"stokavski": "lopovi"
 	},
@@ -6596,8 +6616,16 @@
 		"stokavski": "telefonirati"
 	},
 	{
-		"cakavski": "televizija",
-		"stokavski": "televizor"
+		"cakavski": "televizor",
+		"stokavski": "televizija"
+	},
+	{
+		"cakavski": "televizor",
+		"stokavski": "TV"
+	},
+	{
+		"cakavski": "televizor",
+		"stokavski": "tv"
 	},
 	{
 		"cakavski": "tellin",
