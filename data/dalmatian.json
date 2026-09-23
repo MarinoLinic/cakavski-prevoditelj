@@ -1,0 +1,359 @@
+[
+  {
+    "dialect": "šta",
+    "standard": "što",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "di",
+    "standard": "gdje",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "ovdi",
+    "standard": "ovdje",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "lip",
+    "standard": "lijep",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "lipa",
+    "standard": "lijepa",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "lipo",
+    "standard": "lijepo",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "vrime",
+    "standard": "vrijeme",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "dite",
+    "standard": "dijete",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "dica",
+    "standard": "djeca",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "dicu",
+    "standard": "djecu",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "čovik",
+    "standard": "čovjek",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "mliko",
+    "standard": "mlijeko",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "rič",
+    "standard": "riječ",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "riči",
+    "standard": "riječi",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "dvi",
+    "standard": "dvije",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "cili",
+    "standard": "cijeli",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "cila",
+    "standard": "cijela",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "uvik",
+    "standard": "uvijek",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "nedilja",
+    "standard": "nedjelja",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "lito",
+    "standard": "ljeto",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "svit",
+    "standard": "svijet",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "cvit",
+    "standard": "cvijet",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "pazar",
+    "standard": "tržnica",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "pazaru",
+    "standard": "tržnici",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "pomidora",
+    "standard": "rajčica",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "pomidore",
+    "standard": "rajčice",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "šugaman",
+    "standard": "ručnik",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "katriga",
+    "standard": "stolac",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "katriga",
+    "standard": "stolica",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "šoldi",
+    "standard": "novac",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "spiza",
+    "standard": "hrana",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "spiza",
+    "standard": "kupovina",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "borša",
+    "standard": "torba",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "škartoc",
+    "standard": "vrećica",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "prika",
+    "standard": "prijatelj",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "prike",
+    "standard": "prijatelja",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "cura",
+    "standard": "djevojka",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "mulac",
+    "standard": "dječak",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "odma",
+    "standard": "odmah",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "san",
+    "standard": "sam",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "nisan",
+    "standard": "nisam",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "reka",
+    "standard": "rekao",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "vidija",
+    "standard": "vidio",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "stavija",
+    "standard": "stavio",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "popija",
+    "standard": "popio",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "tija",
+    "standard": "htio",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "bija",
+    "standard": "bio",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "iša",
+    "standard": "išao",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "doša",
+    "standard": "došao",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "otiša",
+    "standard": "otišao",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  },
+  {
+    "dialect": "moga",
+    "standard": "mogao",
+    "note": "",
+    "type": "",
+    "origin": "synthetic"
+  }
+]

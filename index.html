@@ -1,13 +1,159 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Čakavšćina</title>
-	</head>
-	<body>
-		<div id="root"></div>
-		<script type="module" src="/src/main.tsx"></script>
-	</body>
+<!doctype html>
+<html lang="hr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prevoditelj narječja | Hrvatski regionalni govori</title>
+  <meta name="description" content="Prevodite između standardnog hrvatskog, čakavskog govora Kvarnera i dalmatinske ikavice te birajte latinicu, glagoljicu ili ćirilicu.">
+  <meta property="og:title" content="Prevoditelj narječja | Hrvatski regionalni govori">
+  <meta property="og:description" content="Prevodite između standardnog hrvatskog, čakavskog govora Kvarnera i dalmatinske ikavice te birajte latinicu, glagoljicu ili ćirilicu.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#08111a">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308111a'/%3E%3Ctext x='32' y='45' font-family='Arial,sans-serif' font-size='42' font-weight='700' fill='%2338a7d6' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#translator">Preskoči na prevoditelj</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="header-link" href="#about">O projektu</a>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Uključi svijetlu temu" aria-pressed="false">
+        <svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.7"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+        <svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.1A8.8 8.8 0 0 1 8.9 3.8 8.9 8.9 0 1 0 20.2 15.1Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="page-title">
+      <h1 id="page-title">Prevoditelj narječja</h1>
+      <p>Prebacite tekst između standardnog hrvatskog i regionalnih govora.</p>
+    </section>
+
+    <div class="sample-picker">
+      <label class="sr-only" for="sample-select">Odaberi primjer</label>
+      <select id="sample-select" required>
+        <option value="" selected disabled>Odaberi primjer</option>
+      </select>
+    </div>
+
+    <section class="translator-card" id="translator" aria-label="Prevoditelj">
+      <div class="panels">
+        <div class="panel">
+          <div class="panel-controls">
+            <div class="field">
+              <div class="field-label-row">
+                <label for="source-lang">Jezik</label>
+                <button type="button" class="info-button" data-info-kind="language" data-control="source-lang" aria-label="Otvori rječnik: Standardni hrvatski">
+                  <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 5h12M4 10h12M4 15h8"/><circle cx="2.5" cy="5" r=".6"/><circle cx="2.5" cy="10" r=".6"/><circle cx="2.5" cy="15" r=".6"/></svg>
+                </button>
+              </div>
+              <select id="source-lang">
+                <option value="standard" selected>Standardni hrvatski</option>
+                <option value="cakavian">Čakavski (Kvarner)</option>
+                <option value="dalmatian">Dalmatinska ikavica (beta)</option>
+              </select>
+            </div>
+            <div class="field">
+              <div class="field-label-row">
+                <label for="source-alpha">Pismo</label>
+                <button type="button" class="info-button" data-info-kind="alphabet" data-control="source-alpha" aria-label="Otvori pregled pisma: Latinica">
+                  <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 5h12M4 10h12M4 15h8"/><circle cx="2.5" cy="5" r=".6"/><circle cx="2.5" cy="10" r=".6"/><circle cx="2.5" cy="15" r=".6"/></svg>
+                </button>
+              </div>
+              <select id="source-alpha">
+                <option value="latin" selected>Latinica</option>
+                <option value="glagolitic">Glagoljica</option>
+                <option value="cyrillic">Ćirilica</option>
+              </select>
+            </div>
+          </div>
+          <label class="sr-only" for="source-text">Tekst za prevođenje</label>
+          <textarea id="source-text" rows="8" placeholder="Upišite tekst" spellcheck="false"></textarea>
+          <div class="panel-footer">
+            <span id="char-count" class="char-count">0 znakova</span>
+            <button type="button" id="clear-btn" class="text-button">Očisti</button>
+          </div>
+        </div>
+
+        <div class="swap-wrap">
+          <button type="button" id="swap-btn" class="swap-btn" aria-label="Zamijeni smjer i tekst">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h12m0 0-3-3m3 3-3 3M17 17H5m0 0 3-3m-3 3 3 3"/></svg>
+          </button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-controls">
+            <div class="field">
+              <div class="field-label-row">
+                <label for="target-lang">Jezik</label>
+                <button type="button" class="info-button" data-info-kind="language" data-control="target-lang" aria-label="Otvori rječnik: Čakavski (Kvarner)">
+                  <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 5h12M4 10h12M4 15h8"/><circle cx="2.5" cy="5" r=".6"/><circle cx="2.5" cy="10" r=".6"/><circle cx="2.5" cy="15" r=".6"/></svg>
+                </button>
+              </div>
+              <select id="target-lang">
+                <option value="standard">Standardni hrvatski</option>
+                <option value="cakavian" selected>Čakavski (Kvarner)</option>
+                <option value="dalmatian">Dalmatinska ikavica (beta)</option>
+              </select>
+            </div>
+            <div class="field">
+              <div class="field-label-row">
+                <label for="target-alpha">Pismo</label>
+                <button type="button" class="info-button" data-info-kind="alphabet" data-control="target-alpha" aria-label="Otvori pregled pisma: Latinica">
+                  <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 5h12M4 10h12M4 15h8"/><circle cx="2.5" cy="5" r=".6"/><circle cx="2.5" cy="10" r=".6"/><circle cx="2.5" cy="15" r=".6"/></svg>
+                </button>
+              </div>
+              <select id="target-alpha">
+                <option value="latin" selected>Latinica</option>
+                <option value="glagolitic">Glagoljica</option>
+                <option value="cyrillic">Ćirilica</option>
+              </select>
+            </div>
+          </div>
+          <div id="target-text" class="result-text" role="textbox" aria-readonly="true" aria-label="Prevedeni tekst" tabindex="0"></div>
+          <div class="panel-footer">
+            <span class="char-count" aria-hidden="true">&nbsp;</span>
+            <button type="button" id="copy-btn" class="text-button">Kopiraj</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="status-row">
+        <p id="status" class="status" aria-live="polite" aria-atomic="true">
+          <span id="status-prefix">Promijenjeno</span>
+          <span id="changed-count" class="changed-count">0</span>
+          <span id="status-suffix">riječi</span>
+        </p>
+        <button type="button" id="highlight-toggle" class="highlight-toggle" aria-pressed="false" hidden>Prikaži</button>
+      </div>
+    </section>
+
+    <section class="about" id="about" aria-labelledby="about-title">
+      <h2 id="about-title">O projektu</h2>
+      <p>Prevoditelj mijenja riječi i njihove česte oblike prema odabranom govoru. Najprije traži cijele izraze, zatim pojedine riječi, a na kraju primjenjuje nekoliko gramatičkih pravila.</p>
+      <p>Govori se razlikuju od mjesta do mjesta. Rezultat zato nije jedini mogući prijevod, nego praktičan prijedlog koji se može dodatno doraditi.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>Prevoditelj narječja</span><span aria-hidden="true">·</span><span id="current-year"></span>
+  </footer>
+
+  <dialog id="info-dialog" class="info-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-header">
+      <h2 id="dialog-title"></h2>
+      <button type="button" id="dialog-close" class="icon-button dialog-close" aria-label="Zatvori prozor">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg>
+      </button>
+    </div>
+    <label id="dialog-search-label" class="sr-only" for="dialog-search">Pretraži riječi</label>
+    <input id="dialog-search" class="dialog-search" type="search" placeholder="Pretraži riječi">
+    <div id="dialog-list" class="dialog-list" tabindex="0"></div>
+    <p id="dialog-empty" class="dialog-empty" hidden>Nema podudaranja.</p>
+  </dialog>
+
+  <script type="module" src="js/app.js"></script>
+</body>
 </html>
