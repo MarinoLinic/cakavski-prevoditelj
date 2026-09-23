@@ -134,3 +134,5 @@ Stranica ima `lang="hr"`, naslov, opis, Open Graph metapodatke, plavu ikonu, pre
 - [ ] Kada se napišu algoritmi za određivanje oblika imenica i glagola, vjerojatno će dolaziti trenutci kada će više riječi odjednom biti kandidati za prijevod. U tom slučaju ili možemo odabrati random, ili ponuditi frazu "pokušaj opet?" koja se samo pojavi u tom slučaju I U SLUČAJU kad ima više riječi za neku riječ. Recimo, to bi već sada mogli implementirati, no nije potrebno dok pravilno ne napišemo algoritme za gramatiku.
 - [ ] Dodati kineski alfabet nakon gruzijskog.
 - [ ] Maknuti light/dark mode iz URL parametara.
+
+<img width="783" height="673" alt="image" src="https://github.com/user-attachments/assets/3eb40e0c-ddf3-40f4-b727-78bd4062efd1" />
