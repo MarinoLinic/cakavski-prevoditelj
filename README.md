@@ -126,3 +126,11 @@ Stranica ima `lang="hr"`, naslov, opis, Open Graph metapodatke, plavu ikonu, pre
 - [ ] Arebicu provjeriti s izvornim ili stručnim bosanskim izvorima. Hebrejska, gruzijska, hijeroglifska i Linear B preslikavanja su projektna i treba ih potvrditi kao takva.
 - [ ] Dodati provjeru podrške fonta i kratku obavijest kada uređaj ne može prikazati povijesne znakove.
 - [ ] Proširiti regresijski korpus i zatražiti pregled izvornih govornika.
+
+### Dodao korisnik
+
+- [ ] Kasnije, kada se ispune podaci za čakavski (imenice, itd), mogu se informacije brže i lakše aplicirati na riječi za ostale naglaske.
+- [ ] U konačnici se treba dodati neki kajkavski naglasak i još kasnije srpski jezik
+- [ ] Kada se napišu algoritmi za određivanje oblika imenica i glagola, vjerojatno će dolaziti trenutci kada će više riječi odjednom biti kandidati za prijevod. U tom slučaju ili možemo odabrati random, ili ponuditi frazu "pokušaj opet?" koja se samo pojavi u tom slučaju I U SLUČAJU kad ima više riječi za neku riječ. Recimo, to bi već sada mogli implementirati, no nije potrebno dok pravilno ne napišemo algoritme za gramatiku.
+- [ ] Dodati kineski alfabet nakon gruzijskog.
+- [ ] Maknuti light/dark mode iz URL parametara.
