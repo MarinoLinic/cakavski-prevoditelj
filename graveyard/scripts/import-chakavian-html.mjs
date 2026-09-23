@@ -4,8 +4,8 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const htmlPath = process.argv[2] ?? 'C:\\Users\\marin\\Downloads\\cakavski.html';
-const legacyPath = process.argv[3] ?? path.join(ROOT, 'data', 'source-cakavian-legacy.json');
-const outputPath = path.join(ROOT, 'data', 'source-cakavian.json');
+const legacyPath = process.argv[3] ?? path.join(ROOT, 'data', 'source-chakavian-legacy.json');
+const outputPath = path.join(ROOT, 'data', 'source-chakavian.json');
 
 const ranges = [
   ['cabibo', 'cuciar'],

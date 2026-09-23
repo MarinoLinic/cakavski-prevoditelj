@@ -205,10 +205,112 @@ main {
   font-weight: 450;
 }
 
-.sample-picker {
+.sample-menu {
+  position: relative;
+  z-index: 4;
   display: flex;
   margin: 0 auto 1.15rem;
   justify-content: center;
+}
+
+.sample-trigger {
+  display: flex;
+  width: clamp(220px, 32vw, 340px);
+  min-height: 2.4rem;
+  padding: 0.35rem 0.8rem 0.35rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
+}
+
+.sample-trigger:hover,
+.sample-menu.is-open .sample-trigger {
+  border-color: color-mix(in srgb, var(--border) 45%, var(--accent));
+  background: color-mix(in srgb, var(--surface) 74%, var(--raised));
+  color: var(--text);
+}
+
+.sample-trigger svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sample-options {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  left: 50%;
+  z-index: 12;
+  width: min(360px, calc(100vw - 2rem));
+  max-height: min(60vh, 420px);
+  padding: 0.35rem;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -5px) scale(0.985);
+  transform-origin: top center;
+  transition: opacity 150ms ease, transform 160ms ease;
+}
+
+.sample-options[hidden] {
+  display: none;
+}
+
+.sample-menu.is-open .sample-options {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.sample-options.is-closing {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -4px) scale(0.99);
+}
+
+.sample-option {
+  display: block;
+  width: 100%;
+  padding: 0.58rem 0.68rem;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  font-size: 0.84rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 140ms ease, color 140ms ease;
+}
+
+.sample-option:last-child {
+  border-bottom: 0;
+}
+
+.sample-option:hover,
+.sample-option:focus-visible {
+  background: var(--accent-wash);
+  color: var(--text);
 }
 
 select,
@@ -245,15 +347,6 @@ select {
 
 select:invalid {
   color: var(--muted);
-}
-
-.sample-picker select {
-  width: clamp(220px, 32vw, 340px);
-  min-height: 2.4rem;
-  padding: 0.35rem 2rem 0.35rem 1rem;
-  border-radius: 999px;
-  background-color: var(--surface);
-  text-align: center;
 }
 
 .translator-card {
@@ -540,7 +633,7 @@ a:focus-visible {
 .about {
   max-width: 48rem;
   margin: 3.4rem auto 0;
-  text-align: center;
+  text-align: left;
 }
 
 .about h2 {
@@ -566,6 +659,17 @@ a:focus-visible {
   border-top: 1px solid var(--border);
   color: var(--muted);
   font-size: 0.78rem;
+}
+
+.site-footer a {
+  color: var(--muted);
+  font-weight: 550;
+  text-decoration: none;
+  transition: color 140ms ease;
+}
+
+.site-footer a:hover {
+  color: var(--text);
 }
 
 .info-dialog {
@@ -606,6 +710,16 @@ a:focus-visible {
   margin: 0;
   font-size: 1.02rem;
   font-weight: 650;
+}
+
+.dialog-note {
+  margin: -0.25rem 0 0.75rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.dialog-note[hidden] {
+  display: none;
 }
 
 .dialog-close svg {
@@ -747,7 +861,7 @@ a:focus-visible {
     font-size: 0.79rem;
   }
 
-  .sample-picker select {
+  .sample-trigger {
     width: clamp(220px, 78vw, 340px);
   }
 

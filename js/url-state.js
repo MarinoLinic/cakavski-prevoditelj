@@ -1,16 +1,16 @@
 export const DEFAULT_URL_STATE = Object.freeze({
   from: 'standard',
-  to: 'cakavian',
+  to: 'chakavian',
   fromAlphabet: 'latin',
   toAlphabet: 'latin',
   theme: 'dark',
 });
 
 export const URL_STATE_OPTIONS = Object.freeze({
-  from: Object.freeze(['standard', 'cakavian', 'dalmatian']),
-  to: Object.freeze(['standard', 'cakavian', 'dalmatian']),
-  fromAlphabet: Object.freeze(['latin', 'glagolitic', 'cyrillic']),
-  toAlphabet: Object.freeze(['latin', 'glagolitic', 'cyrillic']),
+  from: Object.freeze(['standard', 'chakavian', 'dalmatian']),
+  to: Object.freeze(['standard', 'chakavian', 'dalmatian']),
+  fromAlphabet: Object.freeze(['latin', 'glagolitic', 'cyrillic', 'arebica', 'hebrew', 'georgian', 'hieroglyphs', 'linear-b']),
+  toAlphabet: Object.freeze(['latin', 'glagolitic', 'cyrillic', 'arebica', 'hebrew', 'georgian', 'hieroglyphs', 'linear-b']),
   theme: Object.freeze(['dark', 'light']),
 });
 

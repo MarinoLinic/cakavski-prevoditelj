@@ -1,17 +1,29 @@
 import { createTranslator } from './translator.js';
-import { transliterate, toLatin, getAlphabetEntries } from './alphabets.js';
+import { transliterate, toLatin, getAlphabetEntries, getAlphabetDirection } from './alphabets.js';
 import { parseUrlState, serializeUrlState } from './url-state.js';
 
 const $ = (id) => document.getElementById(id);
 const LANGUAGE_LABELS = {
   standard: 'Standardni hrvatski',
-  cakavian: 'Čakavski (Kvarner)',
+  chakavian: 'Čakavski (Kvarner)',
   dalmatian: 'Dalmatinska ikavica (beta)',
 };
 const ALPHABET_LABELS = {
   latin: 'Latinica',
   glagolitic: 'Glagoljica',
   cyrillic: 'Ćirilica',
+  arebica: 'Arebica',
+  hebrew: 'Hebrejsko pismo',
+  georgian: 'Gruzijsko pismo',
+  hieroglyphs: 'Hijeroglifi',
+  'linear-b': 'Linear B',
+};
+const ALPHABET_NOTES = {
+  arebica: 'Bosanska arebica prilagođena hrvatskoj latinici.',
+  hebrew: 'Projektno preslikavanje znakova, ne povijesni pravopis.',
+  georgian: 'Projektno preslikavanje znakova, ne povijesni pravopis.',
+  hieroglyphs: 'Projektno preslikavanje znakova, ne povijesni pravopis.',
+  'linear-b': 'Projektno preslikavanje znakova, ne povijesni pravopis.',
 };
 
 const els = {
@@ -29,10 +41,13 @@ const els = {
   changedCount: $('changed-count'),
   statusSuffix: $('status-suffix'),
   highlightToggle: $('highlight-toggle'),
-  sampleSelect: $('sample-select'),
+  sampleMenu: $('sample-menu'),
+  sampleTrigger: $('sample-trigger'),
+  sampleOptions: $('sample-options'),
   themeToggle: $('theme-toggle'),
   dialog: $('info-dialog'),
   dialogTitle: $('dialog-title'),
+  dialogNote: $('dialog-note'),
   dialogClose: $('dialog-close'),
   dialogSearch: $('dialog-search'),
   dialogSearchLabel: $('dialog-search-label'),
@@ -46,8 +61,10 @@ let highlightEnabled = false;
 let dialogOpener = null;
 let copyTimer = null;
 let dialogTimer = null;
+let sampleMenuTimer = null;
 let modalRows = [];
 let modalKind = 'language';
+let modalAlphabet = 'latin';
 
 function updateInfoButtons() {
   document.querySelectorAll('.info-button').forEach((button) => {
@@ -58,6 +75,15 @@ function updateInfoButtons() {
       : ALPHABET_LABELS[control.value];
     button.setAttribute('aria-label', kind === 'language' ? `Otvori rječnik: ${label}` : `Otvori pregled pisma: ${label}`);
   });
+}
+
+function updateTextDirections() {
+  for (const [field, alphabet] of [[els.sourceText, els.sourceAlpha.value], [els.targetText, els.targetAlpha.value]]) {
+    const direction = getAlphabetDirection(alphabet);
+    field.dir = direction;
+    field.style.direction = direction;
+    field.style.textAlign = direction === 'rtl' ? 'right' : 'left';
+  }
 }
 
 function updateChangedStatus(count) {
@@ -86,6 +112,7 @@ function renderResult(segments) {
 }
 
 function runTranslation() {
+  updateTextDirections();
   if (!translator) return;
   const input = toLatin(els.sourceText.value, els.sourceAlpha.value);
   const result = translator.inspect(input, els.sourceLang.value, els.targetLang.value);
@@ -145,6 +172,7 @@ function applyUrlState(state) {
   els.targetLang.value = state.to;
   els.sourceAlpha.value = state.fromAlphabet;
   els.targetAlpha.value = state.toAlphabet;
+  updateTextDirections();
   applyTheme(state.theme);
   persistTheme(state.theme);
   updateInfoButtons();
@@ -202,12 +230,55 @@ function restoreUrlState() {
 }
 
 function populateSamples() {
+  els.sampleOptions.replaceChildren();
   for (const [index, sample] of samples.entries()) {
-    const option = document.createElement('option');
-    option.value = String(index);
+    const option = document.createElement('button');
+    option.type = 'button';
+    option.className = 'sample-option';
+    option.setAttribute('role', 'option');
+    option.setAttribute('aria-selected', 'false');
+    option.dataset.sampleIndex = String(index);
     option.textContent = sample.title;
-    els.sampleSelect.append(option);
+    option.addEventListener('click', () => insertSample(index));
+    els.sampleOptions.append(option);
   }
+}
+
+function openSampleMenu() {
+  clearTimeout(sampleMenuTimer);
+  els.sampleOptions.hidden = false;
+  els.sampleOptions.classList.remove('is-closing');
+  requestAnimationFrame(() => els.sampleMenu.classList.add('is-open'));
+  els.sampleTrigger.setAttribute('aria-expanded', 'true');
+}
+
+function closeSampleMenu(restoreFocus = false) {
+  if (els.sampleOptions.hidden || els.sampleOptions.classList.contains('is-closing')) return;
+  els.sampleMenu.classList.remove('is-open');
+  els.sampleOptions.classList.add('is-closing');
+  els.sampleTrigger.setAttribute('aria-expanded', 'false');
+  clearTimeout(sampleMenuTimer);
+  sampleMenuTimer = setTimeout(() => {
+    els.sampleOptions.hidden = true;
+    els.sampleOptions.classList.remove('is-closing');
+    if (restoreFocus) els.sampleTrigger.focus();
+  }, 150);
+}
+
+function toggleSampleMenu() {
+  if (els.sampleOptions.hidden || els.sampleOptions.classList.contains('is-closing')) openSampleMenu();
+  else closeSampleMenu();
+}
+
+function insertSample(index) {
+  const sample = samples[index];
+  if (!sample) return;
+  const sourceLanguageChanged = els.sourceLang.value !== 'standard';
+  els.sourceLang.value = 'standard';
+  els.sourceText.value = transliterate(sample.text, 'latin', els.sourceAlpha.value);
+  if (sourceLanguageChanged) updateHistory('pushState');
+  runTranslation();
+  closeSampleMenu(true);
 }
 
 function appendLanguageRows(rows) {
@@ -230,6 +301,9 @@ function appendLanguageRows(rows) {
       source.textContent = row.source;
       const target = document.createElement('span');
       target.className = 'alphabet-target';
+      target.dir = getAlphabetDirection(modalAlphabet);
+      target.style.direction = target.dir;
+      target.style.textAlign = target.dir === 'rtl' ? 'right' : 'left';
       target.textContent = row.target;
       element.append(source, target);
     } else {
@@ -259,14 +333,21 @@ function openInfo(button) {
   els.dialogList.classList.toggle('alphabet-list', modalKind === 'alphabet');
   els.dialogSearch.hidden = modalKind !== 'language';
   els.dialogSearchLabel.hidden = modalKind !== 'language';
+  els.dialogNote.hidden = true;
+  els.dialogList.dir = 'ltr';
   if (modalKind === 'language') {
     const language = $(button.dataset.control).value;
     els.dialogTitle.textContent = LANGUAGE_LABELS[language];
     modalRows = translator.getLexicon(language);
   } else {
-    const alphabet = $(button.dataset.control).value;
-    els.dialogTitle.textContent = ALPHABET_LABELS[alphabet];
-    modalRows = getAlphabetEntries(alphabet);
+    modalAlphabet = $(button.dataset.control).value;
+    els.dialogTitle.textContent = ALPHABET_LABELS[modalAlphabet];
+    modalRows = getAlphabetEntries(modalAlphabet);
+    const direction = getAlphabetDirection(modalAlphabet);
+    els.dialogList.dir = direction;
+    els.dialogList.style.textAlign = direction === 'rtl' ? 'right' : 'left';
+    els.dialogNote.textContent = ALPHABET_NOTES[modalAlphabet] ?? '';
+    els.dialogNote.hidden = !els.dialogNote.textContent;
   }
   els.dialogSearch.value = '';
   renderModalRows();
@@ -332,15 +413,15 @@ els.highlightToggle.addEventListener('click', () => {
   persistHighlightPreference();
   runTranslation();
 });
-els.sampleSelect.addEventListener('change', () => {
-  const sample = samples[Number(els.sampleSelect.value)];
-  if (!sample) return;
-  const sourceLanguageChanged = els.sourceLang.value !== 'standard';
-  els.sourceLang.value = 'standard';
-  els.sourceText.value = transliterate(sample.text, 'latin', els.sourceAlpha.value);
-  if (sourceLanguageChanged) updateHistory('pushState');
-  runTranslation();
-  els.sampleSelect.value = '';
+els.sampleTrigger.addEventListener('click', toggleSampleMenu);
+document.addEventListener('click', (event) => {
+  if (!els.sampleMenu.contains(event.target)) closeSampleMenu();
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && !els.sampleOptions.hidden) {
+    event.preventDefault();
+    closeSampleMenu(true);
+  }
 });
 els.themeToggle.addEventListener('click', () => {
   const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
@@ -372,12 +453,11 @@ els.dialog.addEventListener('close', () => {
   dialogOpener = null;
 });
 
-$('current-year').textContent = String(new Date().getFullYear());
 initializeHighlightPreference();
 initializeUrlState();
 window.addEventListener('popstate', restoreUrlState);
 Promise.all([
-  fetch('data/cakavian.json').then((response) => {
+  fetch('data/chakavian.json').then((response) => {
     if (!response.ok) throw new Error('Čakavski podaci nisu dostupni.');
     return response.json();
   }),
@@ -389,8 +469,8 @@ Promise.all([
     if (!response.ok) throw new Error('Primjeri nisu dostupni.');
     return response.json();
   }),
-]).then(([cakavian, dalmatian, loadedSamples]) => {
-  translator = createTranslator({ cakavian, dalmatian });
+]).then(([chakavian, dalmatian, loadedSamples]) => {
+  translator = createTranslator({ chakavian, dalmatian });
   samples = loadedSamples;
   populateSamples();
   runTranslation();

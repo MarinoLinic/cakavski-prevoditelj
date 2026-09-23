@@ -199,7 +199,7 @@ function isSentenceInitial(beforeText) {
   return true;
 }
 
-function applyCakavianFallback(token, sentenceInitial) {
+function applyChakavianFallback(token, sentenceInitial) {
   if (isInitialCapital(token) && !sentenceInitial) return token;
   const lower = token.toLowerCase();
   let next = lower;
@@ -293,20 +293,20 @@ function addGenerated(table, direction, surface, candidate) {
   }
 }
 
-function buildCakavianIndexes(dictionary, random) {
+function buildChakavianIndexes(dictionary, random) {
   const allEntries = Array.isArray(dictionary) ? dictionary : [];
   const entries = allEntries.filter((entry) => entry.type !== 'particle');
   const particles = allEntries.filter((entry) => entry.type === 'particle');
-  const standardToCak = buildIndexes(entries, 'standard', 'dialect', random);
-  const cakToStandard = buildIndexes(entries, 'dialect', 'standard', random);
-  const exact = { standard: standardToCak.exact, cakavian: cakToStandard.exact };
-  const phrases = { standard: standardToCak.phrases, cakavian: cakToStandard.phrases };
+  const standardToChak = buildIndexes(entries, 'standard', 'dialect', random);
+  const chakToStandard = buildIndexes(entries, 'dialect', 'standard', random);
+  const exact = { standard: standardToChak.exact, chakavian: chakToStandard.exact };
+  const phrases = { standard: standardToChak.phrases, chakavian: chakToStandard.phrases };
   const maxPhraseWords = {
-    standard: standardToCak.maxPhraseWords,
-    cakavian: cakToStandard.maxPhraseWords,
+    standard: standardToChak.maxPhraseWords,
+    chakavian: chakToStandard.maxPhraseWords,
   };
-  const generatedVerb = { standard: new Map(), cakavian: new Map() };
-  const generatedNoun = { standard: new Map(), cakavian: new Map() };
+  const generatedVerb = { standard: new Map(), chakavian: new Map() };
+  const generatedNoun = { standard: new Map(), chakavian: new Map() };
   const standardHeadwords = new Set(entries.map((entry) => normalizeForm(entry.standard ?? '')).filter(Boolean));
   const dialectTargetCounts = new Map();
   for (const entry of entries) {
@@ -330,21 +330,21 @@ function buildCakavianIndexes(dictionary, random) {
 
   for (const entry of entries) {
     const stdForm = entry.standard;
-    const cakForm = entry.dialect;
-    if (!stdForm || !cakForm) continue;
+    const chakForm = entry.dialect;
+    if (!stdForm || !chakForm) continue;
     if (entry.note && entry.note !== 'Kurirana gramatička dopuna.') continue;
-    if (!isSingleWord(stdForm) || !isSingleWord(cakForm)) continue;
+    if (!isSingleWord(stdForm) || !isSingleWord(chakForm)) continue;
     const stdKey = normalizeForm(stdForm);
-    const cakKey = normalizeForm(cakForm);
-    if (!stdKey || !cakKey) continue;
-    if (dialectTargetCounts.get(cakKey) > 1 && entry.note !== 'Kurirana gramatička dopuna.') continue;
+    const chakKey = normalizeForm(chakForm);
+    if (!stdKey || !chakKey) continue;
+    if (dialectTargetCounts.get(chakKey) > 1 && entry.note !== 'Kurirana gramatička dopuna.') continue;
     const stdVerb = classifyVerbSource(stdKey);
-    const cakVerbEnding = stdVerb ? classifyVerbTarget(cakKey, stdVerb) : null;
+    const chakVerbEnding = stdVerb ? classifyVerbTarget(chakKey, stdVerb) : null;
 
     if (stdVerb) {
-      if (stdVerb !== 'ci' && cakVerbEnding) {
+      if (stdVerb !== 'ci' && chakVerbEnding) {
         const srcSurfaces = verbSurfaces(stdKey, stdVerb, 'source');
-        const tgtSurfaces = verbSurfaces(cakKey, stdVerb, 'target', cakVerbEnding);
+        const tgtSurfaces = verbSurfaces(chakKey, stdVerb, 'target', chakVerbEnding);
         const tgtBySlot = new Map();
         for (const item of tgtSurfaces) {
           if (!tgtBySlot.has(item.slot)) tgtBySlot.set(item.slot, []);
@@ -362,27 +362,27 @@ function buildCakavianIndexes(dictionary, random) {
         }
         for (const item of tgtSurfaces) {
           for (const target of srcBySlot.get(item.slot) ?? []) {
-            addGenerated(generatedVerb, 'cakavian', item.surface, { slot: item.slot, target });
+            addGenerated(generatedVerb, 'chakavian', item.surface, { slot: item.slot, target });
           }
         }
       }
       continue;
     }
-    const neuterAdjectivePair = stdKey.endsWith('o') && cakKey.endsWith('o')
-      && adjectivePairs.has(`${stdKey.slice(0, -1)}\u0000${cakKey.slice(0, -1)}i`);
+    const neuterAdjectivePair = stdKey.endsWith('o') && chakKey.endsWith('o')
+      && adjectivePairs.has(`${stdKey.slice(0, -1)}\u0000${chakKey.slice(0, -1)}i`);
     const neuterAdjectiveStem = /[oe]$/.test(stdKey) && adjectiveStems.has(stdKey.slice(0, -1));
-    const ambiguousTarget = stdKey !== cakKey && standardHeadwords.has(cakKey);
-    if (neuterAdjectivePair || neuterAdjectiveStem || ambiguousTarget || !canGenerateNoun(stdKey, cakKey)) continue;
+    const ambiguousTarget = stdKey !== chakKey && standardHeadwords.has(chakKey);
+    if (neuterAdjectivePair || neuterAdjectiveStem || ambiguousTarget || !canGenerateNoun(stdKey, chakKey)) continue;
 
     const stdNoun = nounSurfaces(stdKey);
-    const cakNoun = nounSurfaces(cakKey);
-    const cakBySlot = new Map();
-    for (const item of cakNoun) {
-      if (!cakBySlot.has(item.slot)) cakBySlot.set(item.slot, []);
-      cakBySlot.get(item.slot).push(item.surface);
+    const chakNoun = nounSurfaces(chakKey);
+    const chakBySlot = new Map();
+    for (const item of chakNoun) {
+      if (!chakBySlot.has(item.slot)) chakBySlot.set(item.slot, []);
+      chakBySlot.get(item.slot).push(item.surface);
     }
     for (const item of stdNoun) {
-      for (const target of cakBySlot.get(item.slot) ?? []) {
+      for (const target of chakBySlot.get(item.slot) ?? []) {
         addGenerated(generatedNoun, 'standard', item.surface, { slot: item.slot, target });
       }
     }
@@ -391,9 +391,9 @@ function buildCakavianIndexes(dictionary, random) {
       if (!stdBySlot.has(item.slot)) stdBySlot.set(item.slot, []);
       stdBySlot.get(item.slot).push(item.surface);
     }
-    for (const item of cakNoun) {
+    for (const item of chakNoun) {
       for (const target of stdBySlot.get(item.slot) ?? []) {
-        addGenerated(generatedNoun, 'cakavian', item.surface, { slot: item.slot, target });
+        addGenerated(generatedNoun, 'chakavian', item.surface, { slot: item.slot, target });
       }
     }
   }
@@ -407,7 +407,7 @@ function buildCakavianIndexes(dictionary, random) {
     entries,
     particles: {
       standard: buildIndexes(particles, 'standard', 'dialect', random).exact,
-      cakavian: buildIndexes(particles, 'dialect', 'standard', random).exact,
+      chakavian: buildIndexes(particles, 'dialect', 'standard', random).exact,
     },
   };
 }
@@ -444,9 +444,9 @@ function appendSegment(segments, text, changed) {
   }
 }
 
-function directCakavianInspect(text, from, indexes) {
+function directChakavianInspect(text, from, indexes) {
   if (from === 'standard' && indexes === null) return identityInspect(text);
-  const direction = from === 'standard' ? 'standard' : 'cakavian';
+  const direction = from === 'standard' ? 'standard' : 'chakavian';
   const parts = tokenize(text);
   const standaloneParticle = isStandaloneParticleUtterance(parts);
   const segments = [];
@@ -516,7 +516,7 @@ function directCakavianInspect(text, from, indexes) {
       matched += 1;
     }
     if (result === null && from === 'standard') {
-      const fallback = applyCakavianFallback(part.text, isSentenceInitial(accumulated));
+      const fallback = applyChakavianFallback(part.text, isSentenceInitial(accumulated));
       if (fallback !== part.text) result = fallback;
     }
     if (result === null) result = part.text;
@@ -604,20 +604,20 @@ function buildStandardLexicon(entries, profile) {
   }));
 }
 
-export function createTranslator({ cakavian, dalmatian, random = Math.random }) {
-  const cakIndexes = buildCakavianIndexes(cakavian, random);
+export function createTranslator({ chakavian, dalmatian, random = Math.random }) {
+  const chakIndexes = buildChakavianIndexes(chakavian, random);
   const dalIndexes = buildDalmatianMaps(dalmatian, random);
-  const cakLexicon = buildProfileLexicon(cakavian);
+  const chakLexicon = buildProfileLexicon(chakavian);
   const dalLexicon = buildProfileLexicon(dalmatian);
   const standardLexicon = [
-    ...buildStandardLexicon(cakavian, 'Čakavski'),
+    ...buildStandardLexicon(chakavian, 'Čakavski'),
     ...buildStandardLexicon(dalmatian, 'Dalmatinska ikavica'),
   ].sort((a, b) => a.source.localeCompare(b.source, 'hr'));
 
   function inspectDirect(text, from, to) {
     if (from === to) return identityInspect(text);
-    if ((from === 'standard' && to === 'cakavian') || (from === 'cakavian' && to === 'standard')) {
-      return directCakavianInspect(text, from, cakIndexes);
+    if ((from === 'standard' && to === 'chakavian') || (from === 'chakavian' && to === 'standard')) {
+      return directChakavianInspect(text, from, chakIndexes);
     }
     if ((from === 'standard' && to === 'dalmatian') || (from === 'dalmatian' && to === 'standard')) {
       return directDalmatianInspect(text, from, dalIndexes);
@@ -644,7 +644,7 @@ export function createTranslator({ cakavian, dalmatian, random = Math.random }) 
   }
 
   function getLexicon(language) {
-    if (language === 'cakavian') return cakLexicon.map(({ source, target }) => ({ source, target }));
+    if (language === 'chakavian') return chakLexicon.map(({ source, target }) => ({ source, target }));
     if (language === 'dalmatian') return dalLexicon.map(({ source, target }) => ({ source, target }));
     if (language === 'standard') return standardLexicon.map((entry) => ({ ...entry }));
     return [];

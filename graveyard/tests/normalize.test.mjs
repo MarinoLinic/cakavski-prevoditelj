@@ -6,8 +6,8 @@ import { fileURLToPath } from 'node:url';
 import { normalize, serialize } from '../scripts/normalize-dictionary.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const raw = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'source-cakavian.json'), 'utf8'));
-const dictionary = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'cakavian.json'), 'utf8'));
+const raw = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'source-chakavian.json'), 'utf8'));
+const dictionary = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'chakavian.json'), 'utf8'));
 
 test('normalizacija je dvaput bajt-identična', () => {
   const first = serialize(normalize(raw).dictionary);
@@ -17,7 +17,7 @@ test('normalizacija je dvaput bajt-identična', () => {
 
 test('generirani rječnik odgovara ponovnoj normalizaciji', () => {
   const regenerated = serialize(normalize(raw).dictionary);
-  const onDisk = fs.readFileSync(path.join(ROOT, 'data', 'cakavian.json'), 'utf8');
+  const onDisk = fs.readFileSync(path.join(ROOT, 'data', 'chakavian.json'), 'utf8');
   assert.equal(onDisk, regenerated);
 });
 
@@ -29,17 +29,17 @@ test('izlaz ima manje unosa od izvornog popisa', () => {
 test('svaki unos ima neprazne nizove i izvor', () => {
   for (const entry of dictionary.entries) {
     assert.ok(Array.isArray(entry.standard) && entry.standard.length > 0);
-    assert.ok(Array.isArray(entry.cakavian) && entry.cakavian.length > 0);
+    assert.ok(Array.isArray(entry.chakavian) && entry.chakavian.length > 0);
     assert.ok(entry.standard.every((form) => typeof form === 'string' && form.length > 0));
-    assert.ok(entry.cakavian.every((form) => typeof form === 'string' && form.length > 0));
+    assert.ok(entry.chakavian.every((form) => typeof form === 'string' && form.length > 0));
     assert.ok(entry.source && typeof entry.source.standard === 'string' && entry.source.standard.length > 0);
-    assert.ok(entry.source && typeof entry.source.cakavian === 'string' && entry.source.cakavian.length > 0);
+    assert.ok(entry.source && typeof entry.source.chakavian === 'string' && entry.source.chakavian.length > 0);
   }
 });
 
 test('pretraživi oblici ne sadrže zagrade', () => {
   for (const entry of dictionary.entries) {
-    for (const form of [...entry.standard, ...entry.cakavian]) {
+    for (const form of [...entry.standard, ...entry.chakavian]) {
       assert.ok(!form.includes('(') && !form.includes(')'), `oblik sa zagradom: ${form}`);
     }
   }

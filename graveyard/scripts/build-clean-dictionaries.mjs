@@ -302,7 +302,7 @@ function assertCanonical(rows, label) {
   }
 }
 
-function cleanCakavian(sourceRows) {
+function cleanChakavian(sourceRows) {
   const output = new Map();
   for (const sourceRow of sourceRows) {
     const dialectParsed = parseDialect(sourceRow.cakavski);
@@ -355,18 +355,18 @@ function cleanDalmatian(sourceRows) {
   return rows;
 }
 
-const sourceCakavianPath = [
-  path.join(ROOT, 'data', 'source-cakavian.json'),
-  path.join(ROOT, 'graveyard', 'data', 'source-cakavian.json'),
+const sourceChakavianPath = [
+  path.join(ROOT, 'data', 'source-chakavian.json'),
+  path.join(ROOT, 'graveyard', 'data', 'source-chakavian.json'),
 ].find((candidate) => fs.existsSync(candidate));
-const sourceCakavian = JSON.parse(fs.readFileSync(sourceCakavianPath, 'utf8'));
+const sourceChakavian = JSON.parse(fs.readFileSync(sourceChakavianPath, 'utf8'));
 const dalmatianInput = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'dalmatian.json'), 'utf8'));
 const sourceDalmatian = Array.isArray(dalmatianInput)
   ? dalmatianInput.map((entry) => ({ standard: [entry.standard], dialect: [entry.dialect] }))
   : dalmatianInput.entries;
-const cakavian = cleanCakavian(sourceCakavian);
+const chakavian = cleanChakavian(sourceChakavian);
 const dalmatian = cleanDalmatian(sourceDalmatian);
-fs.writeFileSync(path.join(ROOT, 'data', 'cakavian.json'), `${JSON.stringify(cakavian, null, 2)}\n`, 'utf8');
+fs.writeFileSync(path.join(ROOT, 'data', 'chakavian.json'), `${JSON.stringify(chakavian, null, 2)}\n`, 'utf8');
 fs.writeFileSync(path.join(ROOT, 'data', 'dalmatian.json'), `${JSON.stringify(dalmatian, null, 2)}\n`, 'utf8');
-console.log(`Čakavian rows written: ${cakavian.length}`);
+console.log(`Čakavskih redaka zapisano: ${chakavian.length}`);
 console.log(`Dalmatian rows written: ${dalmatian.length}`);

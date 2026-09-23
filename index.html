@@ -31,11 +31,12 @@
       <p>Prebacite tekst između standardnog hrvatskog i regionalnih govora.</p>
     </section>
 
-    <div class="sample-picker">
-      <label class="sr-only" for="sample-select">Odaberi primjer</label>
-      <select id="sample-select" required>
-        <option value="" selected disabled>Odaberi primjer</option>
-      </select>
+    <div class="sample-menu" id="sample-menu">
+      <button type="button" id="sample-trigger" class="sample-trigger" aria-haspopup="listbox" aria-expanded="false" aria-controls="sample-options">
+        <span>Odaberi primjer</span>
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>
+      </button>
+      <div id="sample-options" class="sample-options" role="listbox" aria-labelledby="sample-trigger" hidden></div>
     </div>
 
     <section class="translator-card" id="translator" aria-label="Prevoditelj">
@@ -51,7 +52,7 @@
               </div>
               <select id="source-lang">
                 <option value="standard" selected>Standardni hrvatski</option>
-                <option value="cakavian">Čakavski (Kvarner)</option>
+                <option value="chakavian">Čakavski (Kvarner)</option>
                 <option value="dalmatian">Dalmatinska ikavica (beta)</option>
               </select>
             </div>
@@ -66,6 +67,11 @@
                 <option value="latin" selected>Latinica</option>
                 <option value="glagolitic">Glagoljica</option>
                 <option value="cyrillic">Ćirilica</option>
+                <option value="arebica">Arebica</option>
+                <option value="hebrew">Hebrejsko pismo</option>
+                <option value="georgian">Gruzijsko pismo</option>
+                <option value="hieroglyphs">Hijeroglifi</option>
+                <option value="linear-b">Linear B</option>
               </select>
             </div>
           </div>
@@ -94,7 +100,7 @@
               </div>
               <select id="target-lang">
                 <option value="standard">Standardni hrvatski</option>
-                <option value="cakavian" selected>Čakavski (Kvarner)</option>
+                <option value="chakavian" selected>Čakavski (Kvarner)</option>
                 <option value="dalmatian">Dalmatinska ikavica (beta)</option>
               </select>
             </div>
@@ -109,6 +115,11 @@
                 <option value="latin" selected>Latinica</option>
                 <option value="glagolitic">Glagoljica</option>
                 <option value="cyrillic">Ćirilica</option>
+                <option value="arebica">Arebica</option>
+                <option value="hebrew">Hebrejsko pismo</option>
+                <option value="georgian">Gruzijsko pismo</option>
+                <option value="hieroglyphs">Hijeroglifi</option>
+                <option value="linear-b">Linear B</option>
               </select>
             </div>
           </div>
@@ -138,7 +149,7 @@
   </main>
 
   <footer class="site-footer">
-    <span>Prevoditelj narječja</span><span aria-hidden="true">·</span><span id="current-year"></span>
+    <a href="https://linic.net" target="_blank" rel="me noopener">Marino Linić</a><span aria-hidden="true">·</span><span>2026</span>
   </footer>
 
   <dialog id="info-dialog" class="info-dialog" aria-labelledby="dialog-title">
@@ -148,6 +159,7 @@
         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg>
       </button>
     </div>
+    <p id="dialog-note" class="dialog-note" hidden></p>
     <label id="dialog-search-label" class="sr-only" for="dialog-search">Pretraži riječi</label>
     <input id="dialog-search" class="dialog-search" type="search" placeholder="Pretraži riječi">
     <div id="dialog-list" class="dialog-list" tabindex="0"></div>

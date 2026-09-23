@@ -6,49 +6,49 @@ import { fileURLToPath } from 'node:url';
 import { createTranslator, preserveCase } from '../js/translator.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const cakavian = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'cakavian.json'), 'utf8'));
+const chakavian = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'chakavian.json'), 'utf8'));
 const dalmatian = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'dalmatian.json'), 'utf8'));
-const translator = createTranslator({ cakavian, dalmatian, random: () => 0 });
+const translator = createTranslator({ chakavian, dalmatian, random: () => 0 });
 
 test('Što je na stolu? prevede se u Ča je na tavoli?', () => {
-  assert.equal(translator.translate('Što je na stolu?', 'standard', 'cakavian'), 'Ča je na tavoli?');
+  assert.equal(translator.translate('Što je na stolu?', 'standard', 'chakavian'), 'Ča je na tavoli?');
 });
 
 test('akuzativ nakon na: Stavio je torbu na stol.', () => {
   assert.equal(
-    translator.translate('Stavio je torbu na stol.', 'standard', 'cakavian'),
+    translator.translate('Stavio je torbu na stol.', 'standard', 'chakavian'),
     'Stavil je boršu na tavolu.',
   );
 });
 
 test('glagolski parovi: Popio je piće i prošetao se.', () => {
   assert.equal(
-    translator.translate('Popio je piće i prošetao se.', 'standard', 'cakavian'),
+    translator.translate('Popio je piće i prošetao se.', 'standard', 'chakavian'),
     'Popil je piće i špašižal se.',
   );
 });
 
 test('prva osoba sadašnjeg: Stavim torbu na stol.', () => {
   assert.equal(
-    translator.translate('Stavim torbu na stol.', 'standard', 'cakavian'),
+    translator.translate('Stavim torbu na stol.', 'standard', 'chakavian'),
     'Stavin boršu na tavolu.',
   );
 });
 
 test('interpunkcija i razmaci se čuvaju točno', () => {
   assert.equal(
-    translator.translate('Što,  gdje?\nTorba!', 'standard', 'cakavian'),
+    translator.translate('Što,  gdje?\nTorba!', 'standard', 'chakavian'),
     'Ča,  kade?\nBorša!',
   );
 });
 
 test('obrnuti smjer: Ča je na tavoli? u Što je na stolu?', () => {
-  assert.equal(translator.translate('Ča je na tavoli?', 'cakavian', 'standard'), 'Što je na stolu?');
+  assert.equal(translator.translate('Ča je na tavoli?', 'chakavian', 'standard'), 'Što je na stolu?');
 });
 
 test('veličina slova se čuva', () => {
   assert.equal(
-    translator.translate('TORBA Torba torba', 'standard', 'cakavian'),
+    translator.translate('TORBA Torba torba', 'standard', 'chakavian'),
     'BORŠA Borša borša',
   );
 });
@@ -56,12 +56,12 @@ test('veličina slova se čuva', () => {
 test('isti jezik daje identitet', () => {
   const text = 'Ovo ostaje isto.';
   assert.equal(translator.translate(text, 'standard', 'standard'), text);
-  assert.equal(translator.translate(text, 'cakavian', 'cakavian'), text);
+  assert.equal(translator.translate(text, 'chakavian', 'chakavian'), text);
   assert.equal(translator.translate(text, 'dalmatian', 'dalmatian'), text);
 });
 
 test('inspect vraća broj promijenjenih tokena i segmente', () => {
-  const result = translator.inspect('Stavio je torbu na stol.', 'standard', 'cakavian');
+  const result = translator.inspect('Stavio je torbu na stol.', 'standard', 'chakavian');
   assert.equal(result.text, 'Stavil je boršu na tavolu.');
   assert.equal(result.changed, 3);
   assert.ok(result.matched >= 3);
@@ -76,19 +76,19 @@ test('preserveCase pokriva sva slova, početno i malo', () => {
 });
 
 test('šetati koristi rječnički par špašižat', () => {
-  assert.equal(translator.translate('šetati', 'standard', 'cakavian'), 'špašižat');
+  assert.equal(translator.translate('šetati', 'standard', 'chakavian'), 'špašižat');
 });
 
 test('kratke funkcijske riječi ne ulaze u imeničke paradigme', () => {
-  assert.equal(translator.translate('do kuće', 'standard', 'cakavian'), 'do kuće');
+  assert.equal(translator.translate('do kuće', 'standard', 'chakavian'), 'do kuće');
 });
 
 test('pridjevi se ne sklanjaju kao imenice', () => {
   assert.equal(
-    translator.translate('Na velikom stolu.', 'standard', 'cakavian'),
+    translator.translate('Na velikom stolu.', 'standard', 'chakavian'),
     'Na velikon tavoli.',
   );
-  assert.equal(translator.translate('malu uvalu', 'standard', 'cakavian'), 'malu uvalu');
+  assert.equal(translator.translate('malu uvalu', 'standard', 'chakavian'), 'malu uvalu');
 });
 
 test('cijeli korisnikov primjer čuva prijedlog i prevodi oblike', () => {
@@ -96,18 +96,18 @@ test('cijeli korisnikov primjer čuva prijedlog i prevodi oblike', () => {
     translator.translate(
       'Roko je stavio torbu na stol, popio piće, stavio dvije boce vode na šank i prošetao se do kuće.',
       'standard',
-      'cakavian',
+      'chakavian',
     ),
     'Roko je stavil boršu na tavolu, popil piće, stavil dve boce vode na šank i špašižal se do kuće.',
   );
 });
 
 test('u opisu posude navedene tekućine ostaju netaknute', () => {
-  assert.equal(translator.translate('čašu vina i ulja', 'standard', 'cakavian'), 'žmuj vina i ulja');
+  assert.equal(translator.translate('čašu vina i ulja', 'standard', 'chakavian'), 'žmuj vina i ulja');
 });
 
 test('sinonimi ne stvaraju lažne imeničke oblike', () => {
-  const output = translator.translate('s punom vrećicom', 'standard', 'cakavian');
+  const output = translator.translate('s punom vrećicom', 'standard', 'chakavian');
   assert.ok(!output.includes('čudom'));
 });
 
@@ -124,13 +124,13 @@ test('prijevod u dalmatinsku ikavicu traži točne parove', () => {
 
 test('čakavski i dalmatinski prevode se preko standardnog uz očuvanu interpunkciju', () => {
   const text = 'Ča je lipo!';
-  const output = translator.translate(text, 'cakavian', 'dalmatian');
+  const output = translator.translate(text, 'chakavian', 'dalmatian');
   assert.equal([...output].filter((char) => /\p{P}/u.test(char)).join(''), '!');
   assert.ok(output.length > 0);
 });
 
 test('segmenti pokrivaju izlaz, a razdjelnici nisu označeni', () => {
-  const result = translator.inspect('TORBA, torba!  ', 'standard', 'cakavian');
+  const result = translator.inspect('TORBA, torba!  ', 'standard', 'chakavian');
   assert.equal(result.segments.map((segment) => segment.text).join(''), result.text);
   assert.equal(result.changed, 2);
   assert.equal(result.segments.filter((segment) => segment.changed).length, 2);
@@ -140,19 +140,19 @@ test('segmenti pokrivaju izlaz, a razdjelnici nisu označeni', () => {
 });
 
 test('rječnik se može pregledavati za tri jezika', () => {
-  assert.ok(translator.getLexicon('cakavian').some((entry) => entry.source === 'torba' && entry.target === 'borša'));
+  assert.ok(translator.getLexicon('chakavian').some((entry) => entry.source === 'torba' && entry.target === 'borša'));
   assert.ok(translator.getLexicon('dalmatian').some((entry) => entry.source === 'riječ' && entry.target === 'rič'));
   assert.ok(translator.getLexicon('standard').some((entry) => entry.profile === 'Čakavski'));
   assert.ok(translator.getLexicon('standard').some((entry) => entry.profile === 'Dalmatinska ikavica'));
 });
 
 test('standalone particle se prevodi samo kao zaseban iskaz', () => {
-  assert.equal(translator.translate('da', 'standard', 'cakavian'), 'ši');
-  assert.equal(translator.translate('Da!', 'standard', 'cakavian'), 'Ši!');
-  const sentence = translator.translate('Mislim da dolazi.', 'standard', 'cakavian');
+  assert.equal(translator.translate('da', 'standard', 'chakavian'), 'ši');
+  assert.equal(translator.translate('Da!', 'standard', 'chakavian'), 'Ši!');
+  const sentence = translator.translate('Mislim da dolazi.', 'standard', 'chakavian');
   assert.equal([...sentence.matchAll(/\p{L}+/gu)].map((match) => match[0])[1], 'da');
-  assert.equal(translator.translate('ši', 'cakavian', 'standard'), 'da');
-  assert.equal(translator.translate('reka ši', 'cakavian', 'standard'), 'reka ši');
+  assert.equal(translator.translate('ši', 'chakavian', 'standard'), 'da');
+  assert.equal(translator.translate('reka ši', 'chakavian', 'standard'), 'reka ši');
 });
 
 test('dvosmislen izbor ostaje stabilan za sesiju i mijenja se početnim nasumičnim izborom', () => {
@@ -160,10 +160,10 @@ test('dvosmislen izbor ostaje stabilan za sesiju i mijenja se početnim nasumič
     { dialect: 'prvi', standard: 'test', note: '', type: '', origin: 'original' },
     { dialect: 'drugi', standard: 'test', note: '', type: '', origin: 'original' },
   ];
-  const first = createTranslator({ cakavian: choices, dalmatian: [], random: () => 0 });
-  const last = createTranslator({ cakavian: choices, dalmatian: [], random: () => 0.999 });
-  assert.equal(first.translate('test', 'standard', 'cakavian'), 'prvi');
-  assert.equal(first.translate('test', 'standard', 'cakavian'), 'prvi');
-  assert.equal(last.translate('test', 'standard', 'cakavian'), 'drugi');
-  assert.equal(last.translate('test', 'standard', 'cakavian'), 'drugi');
+  const first = createTranslator({ chakavian: choices, dalmatian: [], random: () => 0 });
+  const last = createTranslator({ chakavian: choices, dalmatian: [], random: () => 0.999 });
+  assert.equal(first.translate('test', 'standard', 'chakavian'), 'prvi');
+  assert.equal(first.translate('test', 'standard', 'chakavian'), 'prvi');
+  assert.equal(last.translate('test', 'standard', 'chakavian'), 'drugi');
+  assert.equal(last.translate('test', 'standard', 'chakavian'), 'drugi');
 });

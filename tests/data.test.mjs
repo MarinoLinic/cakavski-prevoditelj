@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dictionaries = [
-  ['Čakavski', JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'cakavian.json'), 'utf8'))],
+  ['Čakavski', JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'chakavian.json'), 'utf8'))],
   ['Dalmatinski', JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'dalmatian.json'), 'utf8'))],
 ];
 const SIMPLE_TERM = /^\p{L}+(?:[ '\u2019-]\p{L}+)*$/u;
@@ -74,20 +74,20 @@ for (const [label, rows] of dictionaries) {
 }
 
 test('problematični izrazi iz izvora nisu pretraživi oblici', () => {
-  const cakavianRows = dictionaries[0][1];
-  const ozvirchiRows = cakavianRows.filter((row) => row.dialect.toLocaleLowerCase('hr') === 'ozvirchi');
+  const chakavianRows = dictionaries[0][1];
+  const ozvirchiRows = chakavianRows.filter((row) => row.dialect.toLocaleLowerCase('hr') === 'ozvirchi');
   assert.ok(ozvirchiRows.length > 0);
   for (const row of ozvirchiRows) assert.equal(row.standard, '');
-  const particles = cakavianRows.filter((row) => row.type === 'particle');
+  const particles = chakavianRows.filter((row) => row.type === 'particle');
   assert.equal(particles.length, 1);
   assert.deepEqual(particles[0], {
     dialect: 'ši', standard: 'da', note: '', type: 'particle', origin: 'original',
   });
-  assert.ok(cakavianRows.some((row) => row.origin === 'original'));
-  assert.ok(cakavianRows.some((row) => row.origin === 'synthetic'));
+  assert.ok(chakavianRows.some((row) => row.origin === 'original'));
+  assert.ok(chakavianRows.some((row) => row.origin === 'synthetic'));
   assert.ok(JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'dalmatian.json'), 'utf8'))
     .every((row) => row.origin === 'synthetic'));
-  assert.ok(cakavianRows.some((row) => row.standard === ''));
+  assert.ok(chakavianRows.some((row) => row.standard === ''));
   for (const [, rows] of dictionaries) {
     for (const row of rows) {
       for (const term of [row.dialect, row.standard]) {
@@ -97,7 +97,7 @@ test('problematični izrazi iz izvora nisu pretraživi oblici', () => {
       }
     }
   }
-  for (const row of cakavianRows) {
+  for (const row of chakavianRows) {
     for (const forbidden of FORBIDDEN_STANDARDS) {
       assert.notEqual(row.standard.toLocaleLowerCase('hr'), forbidden.toLocaleLowerCase('hr'));
     }

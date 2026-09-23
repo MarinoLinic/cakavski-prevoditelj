@@ -3,8 +3,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const SOURCE_PATH = path.join(ROOT, 'data', 'source-cakavian.json');
-const OUTPUT_PATH = path.join(ROOT, 'data', 'cakavian.json');
+const SOURCE_PATH = path.join(ROOT, 'data', 'source-chakavian.json');
+const OUTPUT_PATH = path.join(ROOT, 'data', 'chakavian.json');
 
 const SENTENCE_PUNCT = /[.!?:;]/;
 const DESCRIPTION_MARKERS = [
@@ -76,7 +76,7 @@ function stripTerminal(term) {
   return term.replace(/[.\s]+$/, '');
 }
 
-function parseCakavian(raw) {
+function parseChakavian(raw) {
   const notes = [];
   const { rest, inner } = extractParentheticals(raw);
   let reflexive = false;
@@ -126,7 +126,7 @@ function parseStandard(raw) {
 }
 
 function compareEntries(a, b) {
-  return compareStrings(a.cakavian[0], b.cakavian[0]);
+  return compareStrings(a.chakavian[0], b.chakavian[0]);
 }
 
 const collator = (() => {
@@ -155,30 +155,30 @@ export function normalize(rawRows) {
   let droppedEmpty = 0;
 
   for (const row of rawRows) {
-    const cak = clean(row.cakavski);
+    const chak = clean(row.cakavski);
     const std = clean(row.stokavski);
-    if (!cak || !std) {
+    if (!chak || !std) {
       droppedMissing += 1;
       continue;
     }
-    const key = (cak + ' ' + std).toLowerCase();
+    const key = (chak + ' ' + std).toLowerCase();
     if (seen.has(key)) {
       droppedDuplicates += 1;
       continue;
     }
     seen.add(key);
 
-    const cakParsed = parseCakavian(cak);
+    const chakavianParsed = parseChakavian(chak);
     const stdParsed = parseStandard(std);
-    if (!cakParsed.forms.length || !stdParsed.forms.length) {
+    if (!chakavianParsed.forms.length || !stdParsed.forms.length) {
       droppedEmpty += 1;
       continue;
     }
-    const noteParts = [...stdParsed.notes, ...cakParsed.notes];
+    const noteParts = [...stdParsed.notes, ...chakavianParsed.notes];
     const entry = {
       standard: stdParsed.forms,
-      cakavian: cakParsed.forms,
-      source: { standard: std, cakavian: cak },
+      chakavian: chakavianParsed.forms,
+      source: { standard: std, chakavian: chak },
     };
     if (noteParts.length) entry.note = noteParts.join('; ');
     entries.push(entry);
@@ -188,13 +188,13 @@ export function normalize(rawRows) {
   for (const entry of entries) {
     for (const form of entry.standard) standardTerms.add(form.toLowerCase());
   }
-  for (const [std, cak] of CURATED) {
+  for (const [std, chak] of CURATED) {
     if (standardTerms.has(std)) continue;
     entries.push({
       standard: [std],
-      cakavian: [cak],
+      chakavian: [chak],
       note: 'Dopuna za gramatičke primjere.',
-      source: { standard: std, cakavian: cak },
+      source: { standard: std, chakavian: chak },
     });
     standardTerms.add(std);
   }
